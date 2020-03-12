@@ -21,8 +21,10 @@ python:
 # implementations.
 
 env:
- - TEST_DIRS=".."    RTL_LANGUAGE=""
- - TEST_DIRS=".."    RTL_LANGUAGE="--test-verilog"
+ - TEST_DIRS=".."    RTL_LANGUAGE="--prtl"
+ - TEST_DIRS=".."    RTL_LANGUAGE="--prtl --test-verilog"
+ - TEST_DIRS=".."    RTL_LANGUAGE="--vrtl"
+ - TEST_DIRS=".."    RTL_LANGUAGE="--vrtl --test-verilog"
 
 #------------------------------------------------------------------------
 # install dependencies
