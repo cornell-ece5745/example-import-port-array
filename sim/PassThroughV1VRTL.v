@@ -12,7 +12,7 @@ module PassThroughV1VRTL
 
   generate
     for(i = 0; i < num_ports; i= i+1) begin
-      assign out[i] = in_[i] + 1;
+      assign out[i] = in_[i];
     end
   endgenerate
 
