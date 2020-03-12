@@ -21,6 +21,8 @@ Set `rtl_language` in PassThroughV\*RTL.py to be either `pymtl` or `verilog`.
   % cd example-import-port-array
   % TOP=$PWD
   % mkdir $TOP/sim/test/build & cd $TOP/sim/test/build
-  % pytest ../PassThroughV1RTL_test.py [--test-verilog] [--dump-vcd]
+  % pytest ../PassThroughV1RTL_test.py -sv [--test-verilog] [--dump-vcd]
+  % pytest ../PassThroughV2RTL_test.py -sv [--test-verilog] [--dump-vcd]
+  % pytest ../PassThroughV3RTL_test.py -sv [--test-verilog] [--dump-vcd]
 ```
 The options in brackets are optional.
