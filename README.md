@@ -13,7 +13,7 @@ which is in `PassThroughV*VRTL.v`.
 
 # How to run these examples
 ## Choose your RTL language
-Set `rtl_language` in PassThrough\*RTL.py to be either `pymtl` or `verilog`.
+Set `rtl_language` in PassThroughV\*RTL.py to be either `pymtl` or `verilog`.
 
 ## Run the test
 ```
