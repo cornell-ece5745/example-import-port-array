@@ -43,6 +43,7 @@ install:
 
  # Install PyMTL
  - pip install -U pip
+ - pip install -U hypothesis
  - pip install -U git+https://github.com/cornell-brg/pymtl3.git@spring20-ece5745
  - pip list
 
