@@ -2,8 +2,7 @@ from pymtl3 import *
 from pymtl3.passes.backends.verilog import \
     VerilogPlaceholderConfigs, TranslationConfigs
 
-# rtl_language = 'pymtl'
-rtl_language = 'verilog'
+rtl_language = 'pymtl'
 
 class PassThroughV1VRTL( Component, Placeholder ):
   def construct( s, nports, nbits ):

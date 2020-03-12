@@ -29,9 +29,9 @@ def test_random( nports, nbits, dump_vcd, test_verilog ):
   nvectors = 10
   bits_type = mk_bits(nbits)
 
-  hd_str  = ', '.join( [ f"in_[{i}]" for i in range(nports) ] )
-  hd_str += ', '
-  hd_str += ', '.join( [ f"out[{i}]" for i in range(nports) ] )
+  hd_str  = ' '.join( [ f"in_[{i}]" for i in range(nports) ] )
+  hd_str += ' '
+  hd_str += ' '.join( [ f"out[{i}]*" for i in range(nports) ] )
 
   # Generate test vectors
   tvectors = [ hd_str ]
