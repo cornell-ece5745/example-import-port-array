@@ -4,17 +4,17 @@ from pymtl3.passes.backends.verilog import \
 
 rtl_language = 'pymtl'
 
-class PassThroughV2VRTL( Component, Placeholder ):
+class PassThroughV3VRTL( Component, Placeholder ):
   def construct( s, nports, nbits ):
     s.in_ = InPort( mk_bits(nbits * nports) )
     s.out = OutPort( mk_bits(nbits * nports) )
 
     from os import path
     s.config_placeholder = VerilogPlaceholderConfigs(
-        src_file = path.dirname(__file__) + '/PassThroughV2VRTL.v',
+        src_file = path.dirname(__file__) + '/PassThroughV3VRTL.v',
         # If the top module name is the same as the component class
         # name it is safe to not set it.
-        # top_module = 'PassThroughV2VRTL',
+        # top_module = 'PassThroughV3VRTL',
         params = {
           'num_ports' : nports,
           'bitwidth'  : nbits,
@@ -27,7 +27,7 @@ class PassThroughV2VRTL( Component, Placeholder ):
         # You can leave this option unset if your rtl_language is Verilog
         translate = False,
         # Use the xRTL module name instead of xVRTL
-        explicit_module_name = 'PassThroughV2RTL',
+        explicit_module_name = 'PassThroughV3RTL',
     )
 
 # Check for the global rtl_language setting on CI
@@ -38,8 +38,8 @@ if hasattr( sys, '_called_from_test' ):
 
 # Import based on rtl_language
 if rtl_language == 'pymtl':
-  from PassThroughV2PRTL import PassThroughV2PRTL as PassThroughV2RTL
+  from PassThroughV3PRTL import PassThroughV3PRTL as PassThroughV3RTL
 elif rtl_language == 'verilog':
-  PassThroughV2RTL = PassThroughV2VRTL
+  PassThroughV3RTL = PassThroughV3VRTL
 else:
   raise Exception("Invalid RTL language!")
