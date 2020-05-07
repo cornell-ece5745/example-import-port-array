@@ -1,37 +1,28 @@
+# Verilog import examples
+Examples about how to import a Verilog module with an array of ports
 
-# Verilog Source/Sink Testing
+# Examples
+This repo includes example modules PassThroughV1 ~ PassThroughV3 which pass the
+data at the input ports on to the output ports. All modules are parametrized
+by the bitwidth of the ports. PassThroughV1 uses an unpacked array of ports.
+PassThroughV2 uses a packed array of ports. PassThroughV3 uses regular vector
+ports.
 
-This repo includes an example Verilog module which uses a send/recv
-interface like this:
+`PassThroughV*RTL.py` includes the wrapper for that version of Verilog module
+which is in `PassThroughV*VRTL.v`.
 
+# How to run these examples
+## Choose your RTL language
+Set `rtl_language` in PassThroughV\*RTL.py to be either `pymtl` or `verilog`.
+
+## Run the test
 ```
-module SendRecvIncrVRTL
-(
-  input  logic        clk,
-  input  logic        reset,
-
-  output logic        recv_rdy,
-  input  logic        recv_en,
-  input  logic [31:0] recv_msg,
-
-  input  logic        send_rdy,
-  output logic        send_en,
-  output logic [31:0] send_msg
-);
+  % git clone git@github.com:cornell-ece5745/example-import-port-array.git
+  % cd example-import-port-array
+  % TOP=$PWD
+  % mkdir $TOP/sim/test/build & cd $TOP/sim/test/build
+  % pytest ../PassThroughV1RTL_test.py -sv [--test-verilog] [--dump-vcd]
+  % pytest ../PassThroughV2RTL_test.py -sv [--test-verilog] [--dump-vcd]
+  % pytest ../PassThroughV3RTL_test.py -sv [--test-verilog] [--dump-vcd]
 ```
-
-The module has a receive queue and simply increments the values in the
-queue and sends them out the send interface. We are using latency
-insensitive en/rdy interfaces. The include test file in
-`test/SendRecvIncrRTL_test.py` illustrates how to use both test vectors
-and source/sink testing to test this Verilog module.
-
-Here is how to run the exasmple:
-
-```
-  % git clone git@github.com:cornell-ece5745/example-src-sink-testing
-  % mkdir -p example-src-sink-testing/sim/build
-  % cd example-src-sink-testing/sim/build
-  % pytest ../test/SendRecvIncrVRTL_test.py -sv
-```
-
+The options in brackets are optional.
