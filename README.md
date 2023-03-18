@@ -1,28 +1,44 @@
 # Verilog import examples
-Examples about how to import a Verilog module with an array of ports
 
-# Examples
-This repo includes example modules PassThroughV1 ~ PassThroughV3 which pass the
-data at the input ports on to the output ports. All modules are parametrized
-by the bitwidth of the ports. PassThroughV1 uses an unpacked array of ports.
-PassThroughV2 uses a packed array of ports. PassThroughV3 uses regular vector
-ports.
+Three examples of how to import a Verilog module with an array of ports.
 
-`PassThroughV*RTL.py` includes the wrapper for that version of Verilog module
-which is in `PassThroughV*VRTL.v`.
+## Unpacked array of ports
 
-# How to run these examples
-## Choose your RTL language
-Set `rtl_language` in PassThroughV\*RTL.py to be either `pymtl` or `verilog`.
+You can find a Verilog module having unpacked array of ports at
+`PassThroughV1.v`. Its wrapper is in file `PassThroughV1.py`. In this
+case, the list of ports (`s.in_ = [ InPort( mk_bits(nbits) ) for _ in
+range(nports) ]`) in the PyMTL wrapper will be mapped to an unpacked port
+(`input logic [nbits-1:0] in_ [0:nports-1] `) of the Verilog module.
 
-## Run the test
+## Packed array of ports
+
+You can find a Verilog module having unpacked array of ports at
+`PassThroughV2.v`. Its wrapper is in file `PassThroughV2.py`. In this
+case, the vector port (`s.in_ = InPort( mk_bits(nbits * nports) )`) in
+the PyMTL wrapper will be mapped to a packed port (`input logic
+[nports-1:0][nbits-1:0] in_ `) of the Verilog module. Note that in PyMTL3
+a list of ports will be translated to an unpacked port array in Verilog.
+That is why you need a vector port in PyMTL3 to correctly import a
+packed array of ports in Verilog.
+
+## Wide vector port
+
+Of course, you may also pack every dimension of the array into a single
+long vector. That implementation can be found in `PassThroughV3.v` whose
+wrapper is in `PassThroughV3.py`. Note how you need to manually index
+into the vector port in Verilog to extract the desired slice of the
+signal. The PyMTL3 wrapper is the same as the one in `PassThroughV2.py`,
+because now every dimension has been packed into the vector port.
+
+## How to run these examples
+
 ```
   % git clone git@github.com:cornell-ece5745/example-import-port-array.git
   % cd example-import-port-array
-  % TOP=$PWD
-  % mkdir $TOP/sim/test/build & cd $TOP/sim/test/build
-  % pytest ../PassThroughV1RTL_test.py -sv [--test-verilog] [--dump-vcd]
-  % pytest ../PassThroughV2RTL_test.py -sv [--test-verilog] [--dump-vcd]
-  % pytest ../PassThroughV3RTL_test.py -sv [--test-verilog] [--dump-vcd]
+  % mkdir -p sim/build
+  % cd sim/build
+  % pytest ../PassThroughV1_test.py -sv
+  % pytest ../PassThroughV2_test.py -sv
+  % pytest ../PassThroughV3_test.py -sv
 ```
-The options in brackets are optional.
+
